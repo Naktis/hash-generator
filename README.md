@@ -1,0 +1,2 @@
+# hash-generator
+University project
