@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cmath>
+#include <iomanip>
 
 struct int256
 {
@@ -12,22 +14,24 @@ std::string getHashOfString(std::string input) {
 
     // base
     for (int i = 0; i < 16; i ++) {
-        hash.bits[i] = 4096 + (i * input.length());
+        hash.bits[i] = 4096 + (input[0] * (i+1) * pow(2, input.length()%10));
     }
 
     // read every symbol from input and modify the hash
     for(std::size_t i = 0; i < input.length(); i++)
     {
-        hash.bits[0] = (hash.bits[0] * 7417 * input[i] + input[i]); // todo: different hashes for similar inputs
+        hash.bits[0] = hash.bits[0] * 7417 + pow(3, input[i]%10) * input[i];
         for (int j = 1; j < 16; j ++) {
-            hash.bits[j] = hash.bits[j] + hash.bits[j-1] + input[i];
+            hash.bits[j] = hash.bits[j] * hash.bits[j-1] + input[i];
         }
     }
-
+    
     // append all hash values to one string
     std::ostringstream hashStream; 
-    for (int j = 1; j < 16; j ++)
-        hashStream << std::hex << hash.bits[j]; 
+    for (int j = 0; j < 16; j ++) {
+        char fill = '0' + hash.bits[j]%10;
+        hashStream << std::setfill(fill) << std::setw(4) << std::hex << hash.bits[j] << " "; 
+    }
     std::string hashString = hashStream.str(); 
     return hashString;
 }
