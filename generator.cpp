@@ -1,26 +1,16 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <cmath>
-#include <iomanip>
-
-struct int256
-{
-    uint16_t bits[16];
-};
+#include "generator.hpp"
 
 std::string getHashOfString(std::string input) {
     int256 hash;
 
-    // base
     for (int i = 0; i < 16; i ++) {
-        hash.bits[i] = 4096 + (input[0] * (i+1) * pow(2, input.length()%10));
+        hash.bits[i] = 4096 + (i+1) * (pow(2, input.length()%10) * 9719);
     }
 
     // read every symbol from input and modify the hash
-    for(std::size_t i = 0; i < input.length(); i++)
+    for(int i = 0; i < input.length(); i++)
     {
-        hash.bits[0] = hash.bits[0] * 7417 + pow(3, input[i]%10) * input[i];
+        hash.bits[0] = hash.bits[0] * 7213 + 1327 * pow(input[i]%10,3);
         for (int j = 1; j < 16; j ++) {
             hash.bits[j] = hash.bits[j] * hash.bits[j-1] + input[i];
         }
@@ -29,8 +19,8 @@ std::string getHashOfString(std::string input) {
     // append all hash values to one string
     std::ostringstream hashStream; 
     for (int j = 0; j < 16; j ++) {
-        char fill = '0' + hash.bits[j]%10;
-        hashStream << std::setfill(fill) << std::setw(4) << std::hex << hash.bits[j] << " "; 
+        char fill = '0' + hash.bits[j]%10; // get the last digit as char
+        hashStream << std::setfill(fill) << std::setw(4) << std::hex << hash.bits[j]; 
     }
     std::string hashString = hashStream.str(); 
     return hashString;
@@ -41,9 +31,19 @@ std::string getHashOfFileOrString(std::string input) {
 
     std::ifstream in (input);
     if(in) {    // file exists
-        std::string firstWord;          // todo: read all file
-        in >> firstWord;
-        hash = getHashOfString(firstWord);
+        if (in.peek() == std::ifstream::traits_type::eof()) {   // file's empty
+            hash = getHashOfString("");
+        } else {
+            std::string line, newHash;
+            std::getline(in, line);             // read a line
+            hash = getHashOfString(line);       // get a hash of the line
+
+            while (std::getline(in, line)) {
+                newHash = getHashOfString(line);// read another line
+                hash += newHash;                // add the former and the newer hashes together
+                hash = getHashOfString(hash);   // get a new hash from summed up hashes
+            }
+        }
         in.close();
     }
     else {      // treat input as a string
@@ -54,7 +54,7 @@ std::string getHashOfFileOrString(std::string input) {
 
 int main (int argc, char* argv []) {
     if (argc == 1)
-        std::cout << "No arguments passed\n"; // todo: immediate kill
+        std::cout << "No arguments passed\n";
 
     int i = 1;
     while (argc != 1) { // get hash codes of all passed arguments
