@@ -12,22 +12,32 @@ double match(std::string hash1, std::string hash2) {
     return (matches / hash1.length() * 100);
 }
 
-void test_1(std::string file1, std::string file2) {
-    std::string hash_1 = getHashOfFileOrString(file1);
-    std::string hash_2 = getHashOfFileOrString(file2);
-    std::cout << file1 << ": " << hash_1 << "\n" << file2 << ": " << hash_2
+void test_1(std::string file) {
+    std::string hash_1 = getHashOfFileOrString(file);
+    std::string hash_2 = getHashOfFileOrString(file);
+    std::cout << file << " hash codes:\n" 
+              << hash_1 << " Length: " << hash_1.length() << "\n" 
+              << hash_2 << " Length: " << hash_2.length()
               << "\nMatch: " << match(hash_1, hash_2) << "%\n";
 }
 
 int main() {
     std::cout << "Files with one symbol\n";
-    test_1("1_1_1.txt","1_1_2.txt");
+    test_1("1_1_1.txt");
+    test_1("1_1_2.txt");
 
-    std::cout << "\nFiles with >1000 symbols\n";
-    test_1("1_2_1.txt","1_2_2.txt");
-    test_1("1_2_3.txt","1_2_4.txt");
+    std::cout << "____________________\n\nDifferent files with >1000 symbols\n";
+    test_1("1_2_1.txt");
+    test_1("1_2_2.txt");
+    test_1("1_2_3.txt");
+    test_1("1_2_4.txt");
+
+    std::cout << "____________________\n\nSimilar files with >1000 symbols\n";
+    test_1("1_3_1.txt");
+    test_1("1_3_2.txt");
     
-    std::cout << "\nEmpty file\n1_4.txt: " << getHashOfFileOrString("1_4.txt");
+    std::cout << "____________________\n\nEmpty file\n";
+    test_1("1_4.txt");
     return 0;
 }
 

@@ -1,6 +1,6 @@
-# Hash generatorius
+# *Hash* generatorius
 
-C++ kalba sukurtas hash generatorius, bet kokio ilgio string eilutę paverčiantis 64 simbolių šešioliktainiu kodu.
+C++ kalba sukurtas *hash* generatorius, bet kokio ilgio *string* eilutę paverčiantis 64 simbolių šešioliktainiu kodu.
 
 
 ## Programos diegimas ir naudojimas:
@@ -21,10 +21,13 @@ C++ kalba sukurtas hash generatorius, bet kokio ilgio string eilutę paverčiant
     - `g string1 file1.txt` (windows)
     
 ## Atlikti testai
-1. Lavinos (avalanche) efektas
+1. Lavinos (*avalanche*) efektas su žodžiu Lietuva
 
   ![Lietuva](https://i.ibb.co/JqzsqNC/Ekrano-nuotrauka-2020-10-09-094417.jpg)
   
-2. Vieno simbolio failai, skirtingi >1000 simbolių failai, vienu simboliu besiskiriantys >1000 simbolių failai ir tuščias failas
+2. Tos pačios įvesties ***hash'ų* vienodumas ir ilgis** su vieno simbolio failais, skirtingais >1000 simbolių failais, vienu simboliu besiskiriančiais >1000 simbolių failais ir tuščiu failu
 
-  ![1_testas](https://i.ibb.co/tXPjb5S/Ekrano-nuotrauka-2020-10-09-094526.jpg)
+  ![1_testas_1](https://i.ibb.co/K01VtyK/1.jpg)
+  ![1_testas_2](https://i.ibb.co/PZqMWm1/2.jpg)
+
+Išvados: *Hash* ilgis nepriklauso nuo *input* ilgio - kodas visada sudaromas iš 64 simbolių. Tai pačiai įvesčiai (*input*) išvestis (*output*) visuomet yra ta pati, funkcija deterministinė.
