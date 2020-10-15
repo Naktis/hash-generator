@@ -4,13 +4,13 @@ std::string getHashOfString(std::string input) {
     int256 hash;
 
     for (int i = 0; i < 16; i ++) {
-        hash.bits[i] = 4096 + (i+1) * (pow(2, input.length()%10) * 9719);
+        hash.bits[i] = 4096 + (i+1) * pow(2, input.length()%10) * 9719;
     }
 
     // read every symbol from input and modify the hash
     for(int i = 0; i < input.length(); i++)
     {
-        hash.bits[0] = hash.bits[0] * 7213 + 1327 * pow(input[i]%10,3);
+        hash.bits[0] = hash.bits[0] * 7213 + 1327 * pow(input[i]%10,3) + input[i];
         for (int j = 1; j < 16; j ++) {
             hash.bits[j] = hash.bits[j] * hash.bits[j-1] + input[i];
         }
