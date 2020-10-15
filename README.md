@@ -58,6 +58,7 @@ Komentarai:
 - Jei naudojate *GCC* su *GNU Make*, įrašyti komandą`make generator`
 
 - Jei naudojate *GCC* be *GNU Make*, įrašyti:
+
 `g++ -c generator.cpp hash_functions.cpp`
 
 `g++ -o g generator.o hash_functions.o`
@@ -72,25 +73,32 @@ Komentarai:
 
 1. Tos pačios įvesties ***hash'ų* vienodumas ir ilgis** su vieno simbolio failais (1_1_1.txt), skirtingais >1000 simbolių failais (1_1_2.txt), vienu simboliu besiskiriančiais >1000 simbolių failais (1_1_3.txt) ir tuščiu failu (1_4.txt)
 	*Tester.cpp* faile esančios *test_1* funkcijos rezultatai:
+	
 ![test_1](https://i.ibb.co/c6GxP6J/1.jpg)
 
 	Išvados: *Hash* ilgis nepriklauso nuo *input* ilgio - kodas visada sudaromas iš 64 simbolių. Tai pačiai įvesčiai (*input*) išvestis (*output*) visuomet yra ta pati, funkcija deterministinė.
 
 2. Kiekvienos eilutės iš Konstitucijos ***hash'avimo* trukmės matavimas**
 *Tester.cpp* faile esančios *test_2* funkcijos rezultatai:
+
 ![test_2](https://i.ibb.co/mX6Yhx7/2.jpg)
+
 Išvada: maišos funkcija veikia sparčiai.
 
 3. 100 000 atsitiktinių simbolių eilučių porų ***hash'ų* kolizijų paieška**
  Testavimo failas buvo sugeneruotas naudojant *Tester.cpp* esančią *generateTest3File* funkciją.
  *Tester.cpp* faile esančios *test_3* funkcijos rezultatai:
+ 
  ![test_3](https://i.ibb.co/pwKN7dz/3.jpg)
+ 
  Išvada: maišos funkcija yra pakankamai atspari kolizijai, bet reikia daugiau testų, kad galėtume teigti, kad *hash'ų* sutapimai nėra įmanomi.
 
 4. 100 000 simbolių eilučių porų, tarp kurių skiriasi tik vienas simbolis, ***hash'ų* panašumo vertinimas**
 Testavimo failas buvo sugeneruotas naudojant *Tester.cpp* esančią *generateTest4File* funkciją.
 *Tester.cpp* faile esančios *test_4* funkcijos rezultatai:
+
 ![test_4](https://i.ibb.co/0Dg0WR8/4.jpg)
+
 Išvados: vidutiniškai beveik vienodų *string'ų* *hash'ai* pagal šešioliktainius simbolius sutapo 16.4%, o konvertavus *hash'us* į dvejetainius skaičius, vidutinis sutapimas išaugo iki 70.4%. Lyginant *hash'us* abiem skaičiavimo sistemom buvo rasta bent viena kolizija, nes didžiausias pasiektas sutapimas yra 100%. Taip pat bent vienos poros *hash'ai* skyrėsi visais simboliais, lyginant juos pagal šešioliktainę sistemą (0%).
 
 ## Testų išvados
